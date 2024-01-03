@@ -1,0 +1,17 @@
+{
+  "devDependencies": {
+    "hardhat": "^2.19.4",
+    "truffle": "^5.11.5"
+  },
+  "scripts": {
+    "deploy": "cd contract && npm run deploy",
+    "compile": "npm run call_compile && npm run copy_contract",
+    "call_compile": "cd contract && npx hardhat compile",
+    "copy_contract": "npm run copy_contract_1 && npm run copy_contract_2",
+    "copy_contract_1": "cp contract/artifacts/contracts/Proof.sol/Proof.json server/contracts/Proof.json",
+    "copy_contract_2": "cp contract/artifacts/contracts/Proof.sol/Proof.json client/src/contracts/Proof.json",
+    "client": "cd client && npm run dev",
+    "server": "cd server && bun dev",
+    "test": "cd contract && npm run test"
+  }
+}

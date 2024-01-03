@@ -1,0 +1,92 @@
+version: "3.8"
+
+services:
+  hardhat:
+    build:
+      context: ./contract
+
+    image: file-proof-hardhat
+
+    env_file:
+      - .env
+
+    environment:
+      - IS_IN_DOCKER=true
+
+    ports:
+      - "8545:8545"
+
+    networks:
+      - localnet
+
+    command: ["/bin/sh", "startup.sh"]
+
+  # truffle:
+  #   build:
+  #     context: ./truffle
+
+  #   image: file-proof-truffle
+
+  #   volumes:
+  #     - ./truffle/ganache-db:/app/ganache-db
+
+  #   networks:
+  #     - localnet
+
+  #   env_file:
+  #     - .env
+
+  #   environment:
+  #     - IS_IN_DOCKER=true
+
+  #   # restart: always
+
+  #   ports:
+  #     - "8545:8545"
+
+  #   # command: "-h http://file-proof-truffle-1"
+  #   command: "-h 0.0.0.0 -d"
+
+  server:
+    build:
+      context: ./server
+
+    image: file-proof-backend
+
+    depends_on:
+      - hardhat
+
+    networks:
+      - localnet
+
+    env_file:
+      - .env
+
+    ports:
+      - "3005:3005"
+
+    restart: on-failure
+
+  client:
+    build:
+      context: ./client
+
+    depends_on:
+      - server
+
+    image: file-proof-client
+
+    # restart: always
+
+    env_file:
+      - .env
+
+    networks:
+      - localnet
+
+    ports:
+      - 3000:3000
+
+networks:
+  localnet:
+    driver: bridge

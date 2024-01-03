@@ -1,0 +1,16 @@
+{
+  "name": "hardhat-project",
+  "scripts": {
+    "start": "npm run deploy && npm run node",
+    "deploy": "npx hardhat run scripts/deploy.ts --network localhost",
+    "deploy:docker": "npx hardhat run scripts/deploy.ts --network docker",
+    "node": "npx hardhat node",
+    "node:docker": "npx hardhat node --hostname file-proof-hardhat-1",
+    "test": "npx hardhat test"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.4",
+    "wait-on": "^7.2.0"
+  }
+}
