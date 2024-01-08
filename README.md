@@ -1,4 +1,4 @@
-# Proof file own dApp
+# File proof dApp
 A simple dApp that can proof file ownership by its hash. 
 
 Provide a file with owner's name to submit an ownership request. 
